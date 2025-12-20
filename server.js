@@ -16,6 +16,15 @@ const io = new Server(server, { cors: { origin: "*" } });
 
 connectDB();
 
+// Add this at the top with your other routes
+app.get('/', (req, res) => {
+    res.status(200).send({
+        status: "Online",
+        message: "Auction API is running successfully!",
+        version: "1.0.0"
+    });
+});
+
 // --- API ---
 app.post('/api/join', async (req, res) => {
     try {
@@ -84,6 +93,8 @@ io.on('connection', (socket) => {
         io.to(sessionToken.toUpperCase()).emit('item_skipped');
     });
 });
+// server.js
+
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`🚀 Server on ${PORT}`));
