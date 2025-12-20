@@ -7,14 +7,18 @@ const techItems = [
   { name: "React.js (Modern Web)", category: "Frontend", basePrice: 500000 },
   { name: "Next.js (SEO Framework)", category: "Frontend", basePrice: 500000 },
   { name: "Three.js (3D Graphics)", category: "Frontend", basePrice: 500000 },
+    { name: "CSS", category: "Frontend", basePrice: 500000 },
   { name: "Tailwind CSS (Styling)", category: "Frontend", basePrice: 500000 },
   { name: "Material UI (Ready Components)", category: "Frontend", basePrice: 500000 },
   { name: "Bootstrap (Classic UI)", category: "Frontend", basePrice: 500000 },
+    { name: "HTML", category: "Frontend", basePrice: 500000 },
+
   { name: "Animation Library (GSAP)", category: "Frontend", basePrice: 500000 },
   { name: "Figma Design Pro", category: "Frontend", basePrice: 500000 },
   { name: "Charts.js (Data Visuals)", category: "Frontend", basePrice: 500000 },
   { name: "FontAwesome (Icon Pack)", category: "Frontend", basePrice: 500000 },
   { name: "Sass (Advanced CSS)", category: "Frontend", basePrice: 500000 },
+    { name: "JAVASCRIPT", category: "Frontend", basePrice: 500000 },
   { name: "Redux (State Management)", category: "Frontend", basePrice: 500000 },
   { name: "Vite (Fast Build Tool)", category: "Frontend", basePrice: 500000 },
 
@@ -28,6 +32,8 @@ const techItems = [
   { name: "Redis (Fast Caching)", category: "Backend", basePrice: 500000 },
   { name: "Appwrite (Backend-as-Service)", category: "Backend", basePrice: 500000 },
   { name: "Postman (API Testing)", category: "Backend", basePrice: 500000 },
+    { name: "DJANGO", category: "Backend", basePrice: 500000 },
+
   { name: "GraphQL (Query Language)", category: "Backend", basePrice: 500000 },
   { name: "Docker (Containerization)", category: "Backend", basePrice: 500000 },
   { name: "Supabase (Postgres Cloud)", category: "Backend", basePrice: 500000 },
@@ -61,6 +67,11 @@ const techItems = [
   { name: "Raspberry Pi 5 (Mini PC)", category: "Hardware", basePrice: 500000 },
   { name: "Arduino Uno (Board)", category: "Hardware", basePrice: 500000 },
   { name: "NodeMCU (Wi-Fi Board)", category: "Hardware", basePrice: 500000 },
+    { name: "DC-MOTOR", category: "Hardware", basePrice: 500000 },
+  { name: "LM298", category: "Hardware", basePrice: 500000 },
+    { name: "WHEEL", category: "Hardware", basePrice: 500000 },
+
+
   { name: "ESP32 (Bluetooth/Wi-Fi)", category: "Hardware", basePrice: 500000 },
   { name: "NVIDIA Jetson (AI Nano)", category: "Hardware", basePrice: 500000 },
   { name: "Bluetooth Module (HC-05)", category: "Hardware", basePrice: 500000 },
@@ -69,6 +80,8 @@ const techItems = [
   { name: "LCD Display (16x2)", category: "Hardware", basePrice: 500000 },
   { name: "Servo Motor (Small)", category: "Hardware", basePrice: 500000 },
   { name: "GPS Module (NEO-6M)", category: "Hardware", basePrice: 500000 },
+    { name: "Led Display Rasberry Pi (16x4)", category: "Hardware", basePrice: 500000 },
+
   { name: "Fingerprint Scanner", category: "Hardware", basePrice: 500000 },
   { name: "IR Sensor (Obstacle)", category: "Hardware", basePrice: 500000 },
   { name: "Gas/Smoke Sensor", category: "Hardware", basePrice: 500000 },
