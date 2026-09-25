@@ -10,4 +10,4 @@ const connectDB = async () => {
   }
 };
 
-module.exports = connectDB; // THIS LINE IS KEY
+module.exports = connectDB;
