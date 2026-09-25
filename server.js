@@ -22,7 +22,7 @@ app.use(cors({
   credentials: true,
 }));
 
-app.options('*', cors({
+app.options('/*splat', cors({
   origin: ALLOWED_ORIGIN,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
