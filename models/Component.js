@@ -7,6 +7,13 @@ const mongoose = require('mongoose');
 const ComponentSchema = new mongoose.Schema({
   sessionToken: { type: String, required: true, uppercase: true, trim: true, index: true },
   name: { type: String, required: true, trim: true },
+
+  // FIX: added so seed data's `category` (Frontend/Backend/AI/ML/etc.) is
+  // actually stored instead of silently dropped by Mongoose. Optional +
+  // defaulted so it doesn't break the existing /api/room/setup flow, which
+  // never sends a category.
+  category: { type: String, trim: true, default: 'General' },
+
   basePrice: { type: Number, required: true, default: 0 },
   currentBid: { type: Number, default: 0 },
   highestBidder: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },

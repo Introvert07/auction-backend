@@ -11,29 +11,41 @@ require('dotenv').config();
 const app = express();
 
 // ---------------------------------------------------------------------------
-// CORS — allow the frontend origin in production, wildcard for local dev.
+// CORS — allow the deployed frontend origin, plus any localhost port for
+// local testing (Vite, CRA, etc. all use different default ports).
 // ---------------------------------------------------------------------------
-const ALLOWED_ORIGIN = process.env.CLIENT_URL || 'https://fluxauction.vercel.app';
+const DEPLOYED_ORIGIN = process.env.CLIENT_URL || 'https://fluxauction.vercel.app';
+const LOCALHOST_REGEX = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
 
-app.use(cors({
-  origin: ALLOWED_ORIGIN,
+function isAllowedOrigin(origin) {
+  if (!origin) return true; // non-browser requests (curl, server-to-server, mobile apps)
+  return origin === DEPLOYED_ORIGIN || LOCALHOST_REGEX.test(origin);
+}
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (isAllowedOrigin(origin)) return callback(null, true);
+    callback(new Error(`CORS blocked for origin: ${origin}`));
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
-}));
+};
 
-app.options('/*splat', cors({
-  origin: ALLOWED_ORIGIN,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-}));
+app.use(cors(corsOptions));
+app.options('/*splat', cors(corsOptions));
 
 app.use(express.json());
 
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: { origin: ALLOWED_ORIGIN },
+  cors: {
+    origin: (origin, callback) => {
+      if (isAllowedOrigin(origin)) return callback(null, true);
+      callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+    credentials: true,
+  },
   // Increase ping timeout for flaky connections on phones
   pingTimeout: 30000,
   pingInterval: 10000,
@@ -217,6 +229,21 @@ app.post('/api/join', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Join failed. Try again.' });
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Fetch a single user's live state — purse/squad/isAdmin straight from the DB.
+// The client calls this on every mount/reconnect so a page refresh always
+// shows real DB data instead of whatever was last cached in localStorage.
+// ---------------------------------------------------------------------------
+app.get('/api/user/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to load user' });
   }
 });
 
